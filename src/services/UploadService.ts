@@ -1,9 +1,6 @@
-import { dirname } from "path";
 import { MeasureRequest } from "../types/meansure";
 import { genAI } from "../utils/genAI";
 import { v4 as uuidv4 } from "uuid";
-
-const mediaPath = dirname(require.main!.filename) + "/media";
 
 class UploadService {
   async uploadFile(file: MeasureRequest) {
@@ -17,7 +14,7 @@ class UploadService {
       };
     }
     const prompt =
-      "Is there a number in this image and if so, what does it say, just show me the main numbers, no need to send me explanatory text?";
+      "Can you identify and return only the numbers displayed on the meter, without any additional text or line breaks?";
     const imagePart = fileToGenerativePart();
 
     const result = await model.generateContent([prompt, imagePart]);
