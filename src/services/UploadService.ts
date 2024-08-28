@@ -22,7 +22,7 @@ class UploadService {
     const imageUrl = `data:image/jpeg;base64,${data.image}`;
     const measureUuid = uuidv4();
 
-    await query('INSERT INTO measurements_pending (customer_code, measure_datetime, measure_type, measure_value, image_url, measure_uuid) VALUES ($1, $2, $3, $4, $5, $6)', [
+    await query('INSERT INTO measurements (customer_code, measure_datetime, measure_type, measure_value, image_url, measure_uuid) VALUES ($1, $2, $3, $4, $5, $6)', [
       data.customer_code,
       data.measure_datetime,
       data.measure_type,
