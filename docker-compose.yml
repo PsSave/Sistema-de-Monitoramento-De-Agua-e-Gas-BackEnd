@@ -1,0 +1,28 @@
+services:
+  # Serviço do banco de dados PostgreSQL
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: secretpassword
+      POSTGRES_DB: image_reader
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  # Serviço do backend Node.js
+  backend:
+    build: .
+    environment:
+      DATABASE_URL: postgres://root:secretpassword@postgres:5432/image_reader
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app
+    command: npm start
+
+volumes:
+  postgres-data:
