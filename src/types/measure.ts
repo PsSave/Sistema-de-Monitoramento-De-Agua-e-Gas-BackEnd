@@ -11,3 +11,8 @@ export interface MeasureRequest {
   measure_datetime: Date;
   measure_type: MeasureType;
 }
+
+export type ParamsList = {
+  customer_code: string;
+  measure_type?: MeasureType;
+}
