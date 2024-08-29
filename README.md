@@ -21,7 +21,10 @@ Antes de utilizar o projeto, você deve criar um arquivo `.env` na raiz do proje
   GEMINI_API_KEY=<chave da API>
   ```
 #
-- Para rodar o projeto basta buildar o docker-compose.
+- Para rodar o projeto basta rodar o npm install e em seguida buildar o docker-compose.
+  ```npm install
+     npm install
+  ```
   ```docker-compose
     docker-compose up --build
   ```
