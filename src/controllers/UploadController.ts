@@ -19,6 +19,12 @@ class UploadController {
       const result = await uploadService.uploadData(data);
       res.status(200).json(result);
     } catch (error) {
+      if((error as any).statusCode === 409) {
+        return res.status(409).json({
+          error_code: "CONFIRMATION_DUPLICAT",
+          error_description: "Já existe uma leitura para este tipo no mês atual",
+        });
+      }
       res.status(500).json({
         error_code: "INTERNAL_ERROR",
         error_description: "Erro interno do servidor.",
