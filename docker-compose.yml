@@ -9,19 +9,10 @@ services:
       POSTGRES_DB: image_reader
     volumes:
       - postgres-data:/var/lib/postgresql/data
+      - ./src/database/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
 
-  # Serviço do pgAdmin
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-    ports:
-      - "8080:80"
-      
   # Serviço do backend Node.js
   backend:
     build: .
