@@ -5,6 +5,16 @@ import { query } from "../database/db";
 
 class UploadService {
   async uploadData(data: MeasureRequest) {
+    const existingMeasure = await query(
+      'SELECT * FROM measurements WHERE customer_code = $1 AND measure_type = $2 AND EXTRACT(MONTH FROM measure_datetime) = EXTRACT(MONTH FROM $3::timestamp)',
+      [data.customer_code, data.measure_type, data.measure_datetime]
+    );
+    if(existingMeasure.rowCount! > 0) {
+      const error = new Error("DOUBLE_REPORT");
+      (error as any).statusCode = 409;
+      throw error;
+    }
+
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     function fileToGenerativePart() {
       return {
