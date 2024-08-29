@@ -13,6 +13,9 @@ RUN npm install
 # Copie o restante do código da aplicação
 COPY . .
 
+# Compile o TypeScript (se necessário)
+RUN npm run build
+
 # Exponha a porta que a aplicação vai rodar (por exemplo, 3000)
 EXPOSE 3000
 
